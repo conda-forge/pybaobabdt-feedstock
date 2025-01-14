@@ -7,24 +7,25 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pybaobabdt-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pybaobabdt-{{ version }}.tar.gz
   sha256: e09451dd655b7df43cc4b50749338bb1a4f481f15f60550f3b09df86b6dbd65b
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
     - matplotlib-base
     - numpy
     - pandas
     - pygraphviz
-    - python >=3.6
+    - python >={{ python_min }}
     - scikit-learn
     - scipy
 
@@ -36,6 +37,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://gitlab.tue.nl/20040367/pybaobab
